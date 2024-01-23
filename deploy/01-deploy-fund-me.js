@@ -36,7 +36,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
     //Get the pricefeed address
     let ethUsdPriceFeedAddress;
-    //if the contact is being deployed on development chain
+    //if the contract is being deployed on development chain
     //then get the address of the mock price feed
     if (developmentChains.includes(network.name)) {
         //get the mock contract that was deployed
@@ -55,12 +55,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     /*use deploy function extracted from hre to deploy the contract as below
     args are the arguments to be passed to the constructor of the contract
     log is to do custom log so that we don't have to do console.log for debugging etc.*/
-    const fundMe = await deploy("FundMe", {
-        from: deployer,
-        args: args,
-        log: true,
-        waitConfirmations: network.config.blockConfirmations || 1,
-    });
+        const fundMe = await deploy("FundMe", {
+            from: deployer,
+            args: args,
+            log: true,
+            waitConfirmations: network.config.blockConfirmations || 1,
+        });
 
     //Verify the contract after deploying only when contract is deployed
     // on test net. For local deployments verification is meaningless

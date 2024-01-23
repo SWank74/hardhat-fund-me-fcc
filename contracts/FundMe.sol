@@ -8,6 +8,7 @@ pragma solidity ^0.8.8;
 
 import "./PriceConverter.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "hardhat/console.sol";
 
 
 contract FundMe {
@@ -30,11 +31,14 @@ contract FundMe {
     }
 
     receive() external payable {
+        console.log("receive function: %s", msg.value);
         fund();
+
     }
 
     fallback() external  payable {
-        fund();
+        console.log("fallback function: %s", msg.value);
+        //fund();
     }
 
     function fund() public payable  {
@@ -42,6 +46,7 @@ contract FundMe {
         //if the contract is receiving / sending token then the function should be set to payable
         //"require" below is to check if the token that was send was of value more that the min set.
         //otherwise the function reverts with an error message. The user is refunded any unspent gas
+        console.log("Fund Function : funding amount is %s",msg.value);
         require(msg.value.convertToUSD(s_priceFeed) >= minFund, "Did not send enough");
         s_funders.push(msg.sender);
         s_fundersToAmountMap[msg.sender] = msg.value;

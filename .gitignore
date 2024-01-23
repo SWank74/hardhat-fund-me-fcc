@@ -6,7 +6,7 @@ typechain
 typechain-types
 deployments
 gas-report.txt
-
+my notes.txt
 # Hardhat files
 cache
 artifacts
